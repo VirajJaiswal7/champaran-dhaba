@@ -13,7 +13,7 @@ connectDb();
 
 app.use(
   cors({
-    origin: ["https://localhost:5173", "https://localhost:5174"],
+    origin: ["https://champaran-virajs-projects-8e01ccd3.vercel.app", "https://champaran-2gvz.vercel.app"],
     credentials: true,
   })
 );
