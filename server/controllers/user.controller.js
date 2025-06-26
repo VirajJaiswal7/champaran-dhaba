@@ -52,7 +52,7 @@ export const register = async (req, res) => {
       .status(201)
       .cookie("token", token, {
         httpOnly: true,
-        secure: false, // ✅ should be false for localhost
+        secure: true, // ✅ should be false for localhost
         sameSite: "Lax", // or "None" if on different domains with HTTPS
         maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
       })
@@ -109,7 +109,7 @@ export const login = async (req, res) => {
       .status(200)
       .cookie("token", token, {
         httpOnly: true,
-        secure: false, // ✅ should be false for localhost
+        secure: true, // ✅ should be false for localhost
         sameSite: "Lax", // or "None" if on different domains with HTTPS
         maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
       })
