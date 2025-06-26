@@ -10,12 +10,12 @@ const Hero = () => {
           alt=""
           className=" bg-cover h-full w-full rounded-xl opacity-80"
         />
-        <div className="absolute top-0 p-16 space-y-6">
+        <div className="absolute top-0 p-4 md:p-16 space-y-6">
           <div className="flex items-center gap-4">
-            <ImSpoonKnife className="text-white w-16 h-16" />
-            <h1 className="text-white text-5xl font-semibold">Champaran</h1>
+            <ImSpoonKnife className="text-white w-10 md:w-16 h-10 md:h-16" />
+            <h1 className="text-white text-3xl md:text-5xl font-semibold">Champaran</h1>
           </div>
-          <p className="text-lg max-w-2xl text-white lg:hidden block">
+          <p className="md:text-lg w-full md:max-w-2xl text-white lg:hidden block">
             Champaran is a traditional dhaba that serves the most popular
             Chicken Handi and a wide variety of other delicious items.
           </p>
