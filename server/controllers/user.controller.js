@@ -52,8 +52,6 @@ export const register = async (req, res) => {
       .status(201)
       .cookie("token", token, {
         httpOnly: true,
-        secure: true, // ✅ should be false for localhost
-        sameSite: "Lax", // or "None" if on different domains with HTTPS
         maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
       })
       .json({
@@ -109,8 +107,6 @@ export const login = async (req, res) => {
       .status(200)
       .cookie("token", token, {
         httpOnly: true,
-        secure: true, // ✅ should be false for localhost
-        sameSite: "Lax", // or "None" if on different domains with HTTPS
         maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
       })
       .json({
@@ -144,8 +140,6 @@ export const logout = async (req, res) => {
       .cookie("token", "", {
         maxAge: 0,
         httpOnly: true,
-        sameSite: "Lax", // Or "None" if using cross-origin
-        secure: true, // if using HTTPS
       })
       .json({ message: "User logout successfully", success: true });
   } catch (error) {
@@ -191,7 +185,6 @@ export const adminLogin = async (req, res) => {
       .cookie("adminToken", token, {
         maxAge: 7 * 24 * 60 * 60 * 1000,
         httpOnly: true,
-        sameSite: "strict",
       })
       .json({
         message: "logged in successfully",
@@ -208,10 +201,13 @@ export const adminLogin = async (req, res) => {
 
 export const adminLogout = async (req, res) => {
   try {
-    return res.status(200).cookie("adminToken", " ", { maxAge: 0 }).json({
-      message: "Logout successfully",
-      success: true,
-    });
+    return res
+      .status(200)
+      .cookie("adminToken", " ", { maxAge: 0, httpOnly: true })
+      .json({
+        message: "Logout successfully",
+        success: true,
+      });
   } catch (error) {
     console.log(error);
     return res.status(500).json({
