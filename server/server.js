@@ -13,7 +13,7 @@ connectDb();
 
 app.use(
   cors({
-    origin: ["https://champaran-pple.vercel.app", "https://champaran.vercel.app"],
+    origin: ["https://champaran-8j8y.vercel.app", "https://champaran-ifbu.vercel.app"],
     credentials: true,
   })
 );
