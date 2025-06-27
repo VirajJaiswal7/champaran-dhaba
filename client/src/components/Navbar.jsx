@@ -199,6 +199,19 @@ const Navbar = () => {
                 </NavLink>
                 <NavLink
                   onClick={() => setSidebarOpen(false)}
+                  to="/yourorders"
+                  className={({ isActive }) =>
+                    `${
+                      isActive
+                        ? "bg-orange-400 text-white"
+                        : "hover:bg-orange-100 text-black"
+                    } px-3 py-3`
+                  }
+                >
+                  My Orders
+                </NavLink>
+                <NavLink
+                  onClick={() => setSidebarOpen(false)}
                   to="/saveditem"
                   className={({ isActive }) =>
                     `${

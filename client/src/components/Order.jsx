@@ -30,7 +30,7 @@ const Order = () => {
       onSubmit={handleOrderSubmit}
       className="max-w-7xl mx-auto my-20 flex flex-col gap-4 px-2 md:flex-row justify-between items-center"
     >
-      <div className="w-[500px] space-y-4">
+      <div className="sm:w-[500px] space-y-4">
         <div className="flex gap-2">
           <input
             onChange={(e) => setFirstname(e.target.value)}
@@ -101,7 +101,7 @@ const Order = () => {
           className="w-full border border-gray-400 py-2 px-3 placeholder:text-gray-500 rounded-sm"
         />
       </div>
-      <div className="w-[400px] space-y-8">
+      <div className="sm:w-[400px] space-y-8">
         <PlaceOrder item={saveCart} />
         <button
           type="submit"

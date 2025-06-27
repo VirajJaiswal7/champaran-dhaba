@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import { useBackend } from "./useBackend";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import {  setUser } from "@/redux/userSlice";
+import { setUser } from "@/redux/userSlice";
 import { toast } from "sonner";
 import { setOrderData, setSaveCart, setSaveItems } from "@/redux/itemSlice";
 import axios from "axios";
@@ -12,6 +12,7 @@ export const useLogin = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingLogout, setIsLoadingLogout] = useState(false);
   const [login, setLogin] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -65,6 +66,27 @@ export const useLogin = () => {
     }
   };
 
+  const handleLogout = async () => {
+    try {
+      setIsLoadingLogout(true);
+      const res = await axios.get(`${backendUrl}/api/user/logout`, {
+        withCredentials: true,
+      });
+
+      if (res?.data?.success) {
+        toast.success(res?.data?.message);
+        navigate("/");
+        dispatch(setSaveItems([]));
+        dispatch(setOrderData([]));
+        dispatch(setSaveCart([]));
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error?.response?.data?.message);
+    } finally {
+      setIsLoadingLogout(false);
+    }
+  };
   return {
     handleSubmit,
     login,
@@ -76,5 +98,7 @@ export const useLogin = () => {
     password,
     isLoading,
     setLogin,
+    handleLogout,
+    isLoadingLogout,
   };
 };

@@ -11,14 +11,16 @@ const Login = () => {
     setPassword,
     password,
     isLoading,
+    isLoadingLogout,
     setLogin,
+    handleLogout,
   } = useLogin();
 
   return (
-    <div className="max-w-7xl mx-auto flex items-center justify-center h-[90vh] px-2 md:px-4">
+    <div className="max-w-7xl mx-auto flex flex-col items-center justify-center h-[90vh] px-2 md:px-4">
       <form
         onSubmit={handleSubmit}
-        className="w-[400px] border p-8 space-y-6 rounded-xl border-gray-300"
+        className="md:w-[400px] border p-8 space-y-6 rounded-xl border-gray-300"
       >
         <h1 className="font-semibold text-4xl text-center text-orange-700">
           {login ? "Log In" : "Sign UP"}
@@ -81,6 +83,18 @@ const Login = () => {
           </span>
         </p>
       </form>
+      <button
+        onClick={handleLogout}
+        className="bg-orange-500 text-white w-full mt-5 py-2 rounded-md md:w-[400px]"
+      >
+        {isLoadingLogout ? (
+          <div className="flex justify-center items-center">
+            <div className="w-6 h-6 border-3 border-white border-t-transparent rounded-full animate-spin"></div>
+          </div>
+        ) : (
+          "Logout"
+        )}
+      </button>
     </div>
   );
 };

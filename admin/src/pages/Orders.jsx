@@ -88,6 +88,16 @@ const Orders = () => {
                   <p className="font-semibold">Phone Number : </p>
                   <p className="font-sans">{order?.phone}</p>
                 </div>
+                <p className="gap-2 flex">
+                  <p className="font-semibold">Ordered on:</p>
+                  <div>
+                    {order?.userId?.createdAt &&
+                      new Date(order.userId.createdAt).toLocaleString("en-IN", {
+                        dateStyle: "medium",
+                        timeStyle: "short",
+                      })}
+                  </div>
+                </p>
               </div>
               <div className="border  border-gray-300 rounded-xs p-4 space-y-3 overflow-x-auto">
                 {order?.items?.map((item) => (

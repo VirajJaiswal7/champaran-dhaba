@@ -1,9 +1,11 @@
 import React from "react";
+import { MdConnectWithoutContact } from "react-icons/md";
+
 
 const Contact = () => {
   return (
     <div className="max-w-7xl mx-auto my-20 px-6 md:px-40 py-10">
-      <div className="grid md:grid-cols-2 gap-24 items-center">
+      <div className="grid md:grid-cols-2 gap-24 items-center justify-center">
         {/* Contact Info */}
         <div className="space-y-8">
           <h2 className="text-4xl font-bold text-orange-700 mb-10">
@@ -28,31 +30,9 @@ const Contact = () => {
             <p className="text-gray-600">satish12@gmail.com</p>
           </div>
         </div>
-
-        {/* Contact Form */}
-        <form className="space-y-6">
-          <input
-            type="text"
-            placeholder="Your Name"
-            className="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500"
-          />
-          <input
-            type="email"
-            placeholder="Your Email"
-            className="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500"
-          />
-          <textarea
-            rows="5"
-            placeholder="Your Message"
-            className="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500"
-          ></textarea>
-          <button
-            type="submit"
-            className="bg-orange-500 text-white px-6 py-3 rounded-lg hover:bg-orange-600 transition"
-          >
-            Send Message
-          </button>
-        </form>
+        <div>
+          <MdConnectWithoutContact className="w-56 h-56 text-orange-500"/>
+        </div>
       </div>
     </div>
   );

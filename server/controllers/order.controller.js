@@ -1,6 +1,7 @@
 import { Order } from "../models/order.model.js";
 import validator from "validator";
 import { User } from "../models/user.model.js";
+import { sendOrderEmail } from "./sendOrderEmail.controller.js";
 
 export const sendOrder = async (req, res) => {
   try {
@@ -49,23 +50,7 @@ export const sendOrder = async (req, res) => {
       });
     }
 
-    // const isEmail = await Order.findOne({ email });
-    // if (isEmail) {
-    //   return res.status(400).json({
-    //     message: "Email already exist try another email",
-    //     success: false,
-    //   });
-    // }
-
-    // const isPhone = await Order.findOne({ phone });
-    // if (isPhone) {
-    //   return res.status(400).json({
-    //     message: "Phone number already exist try another phone number",
-    //     success: false,
-    //   });
-    // }
-
-    const user = await User.findById(userId);
+    const user = await User.findById(userId).populate("cart.itemId");
 
     if (user.cart.length === 0) {
       return res.status(400).json({
@@ -98,6 +83,13 @@ export const sendOrder = async (req, res) => {
     user.order.push(order?._id);
     // user.cart = [];
     await user.save();
+
+    try {
+      await sendOrderEmail(order, user.cart);
+      console.log("✅ Email sent after order.");
+    } catch (emailErr) {
+      console.error("❌ Email sending failed:", emailErr);
+    }
 
     const populateUser = await User.findById(userId)
       .populate("order")
