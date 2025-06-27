@@ -23,7 +23,6 @@ const App = () => {
   useEffect(() => {
     NProgress.start();
 
-    // Simulate loading delay (optional)
     const timer = setTimeout(() => {
       NProgress.done();
     }, 300); // You can adjust this time
@@ -33,7 +32,6 @@ const App = () => {
     };
   }, [location]);
 
-  // define routes where Footer should be hidden
   const hideFooterRoutes = ["/login"];
 
   const [loading, setLoading] = useState(true);

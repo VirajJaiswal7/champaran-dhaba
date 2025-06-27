@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import { useBackend } from "./useBackend";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { setIsAuth, setUser } from "@/redux/userSlice";
+import {  setUser } from "@/redux/userSlice";
 import { toast } from "sonner";
 import { setOrderData, setSaveCart, setSaveItems } from "@/redux/itemSlice";
 import axios from "axios";
@@ -31,7 +31,6 @@ export const useLogin = () => {
         if (res?.data?.success) {
           toast.success(res?.data?.message);
           dispatch(setUser(res?.data?.user));
-          dispatch(setIsAuth(true));
           navigate("/");
         }
       } catch (error) {
@@ -52,7 +51,6 @@ export const useLogin = () => {
         if (res?.data?.success) {
           toast.success(res?.data?.message);
           dispatch(setUser(res?.data?.user));
-          dispatch(setIsAuth(true));
           navigate("/");
           dispatch(setSaveItems([]));
           dispatch(setOrderData([]));
