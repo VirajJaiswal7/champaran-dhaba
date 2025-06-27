@@ -1,48 +1,12 @@
-import { useParams } from "react-router-dom";
+import { useItemDescr } from "../../hooks/useItemDescr";
 import RelatedItem from "./RelatedItem";
-import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
-import { toast } from "sonner";
-import axios from "axios";
-import { useBackend } from "../../hooks/useBackend";
-import { setSaveCart } from "../redux/itemSlice";
 
 const ItemDescription = () => {
-  const { id } = useParams();
-  const { backendUrl } = useBackend();
-  const dispatch = useDispatch();
-  const [image, setImage] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const items = useSelector((store) => store?.items?.items);
-
-  const filterItem = items?.find((item) => item?._id === id);
-  const filterCategory = items?.filter(
-    (item) => item?.category === filterItem?.category
-  );
-
+  const { filterItem, setImage, image, handleCart, isLoading, filterCategory } =
+    useItemDescr();
   if (!filterItem) {
-    return <p>Item not found</p>;
+    return <p>Item not found</p>; //if this is use in hook than hook name change js to jsx because this is a jsx syntax
   }
-
-  const handleCart = async (e) => {
-    e.preventDefault();
-    try {
-      setIsLoading(true);
-      const res = await axios.get(
-        `${backendUrl}/api/item/addcart/${filterItem?._id}`,
-        { withCredentials: true }
-      );
-      if (res?.data?.success) {
-        toast.success(res?.data?.message);
-        dispatch(setSaveCart(res?.data?.cart));
-      }
-    } catch (error) {
-      console.log(error);
-      toast.error(error?.response?.data?.message);
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   return (
     <div className="max-w-7xl mx-auto my-20 px-4 sm:px-6 lg:px-8">

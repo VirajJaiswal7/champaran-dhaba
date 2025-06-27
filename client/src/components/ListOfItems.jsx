@@ -1,50 +1,8 @@
-import { useEffect, useState } from "react";
-import { listItems } from "../assets/asset";
+import { useListOfItems } from "../../hooks/useListOfItems";
 import RelatedItem from "./RelatedItem";
-import { toast } from "sonner";
-import axios from "axios";
-import { useBackend } from "../../hooks/useBackend";
-import { useDispatch, useSelector } from "react-redux";
-import { setItems } from "../redux/itemSlice";
 
 const ListOfItems = () => {
-  const [value, setValue] = useState(null);
-  const [show, setShow] = useState(true);
-  const items = useSelector((store) => store?.items?.items);
-  console.log(items)
-
-  const filterItem = items?.filter((item) => {
-    return item.category === value;
-  });
-
-  const handleValue = (item) => {
-    setValue(item);
-    setShow(false);
-  };
-
-  const { backendUrl } = useBackend();
-  const dispatch = useDispatch();
-  const handleItem = async () => {
-    try {
-      const res = await axios.get(`${backendUrl}/api/item/getitem`, {
-        withCredentials: true,
-      });
-
-      if (res?.data?.success) {
-        toast.success(res?.data?.message);
-        dispatch(setItems(res?.data?.item));
-      }
-    } catch (error) {
-      console.log(error);
-      toast.error(error?.response?.data?.message);
-    }
-  };
-
-  useEffect(() => {
-    handleItem();
-  }, []);
-
-
+  const { listItems, handleValue, filterItem, show, items } = useListOfItems();
   return (
     <div className="my-20 max-w-7xl mx-auto px-2 md:px-4">
       <div className="space-y-12">
@@ -63,7 +21,7 @@ const ListOfItems = () => {
                 className="rounded-full w-24 h-24 object-cover cursor-pointer"
                 onClick={() => handleValue(item?.category)}
               />
-              <h1 className="text-gray-700">{item.category}</h1>
+              <h1 className="text-gray-700">{item?.category}</h1>
             </div>
           ))}
         </div>

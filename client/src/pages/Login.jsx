@@ -1,71 +1,19 @@
-import axios from "axios";
-import { useBackend } from "../../hooks/useBackend";
-import { useState } from "react";
-import { toast } from "sonner";
-import { useDispatch } from "react-redux";
-import { setIsAuth, setUser } from "../redux/userSlice";
-import { useNavigate } from "react-router-dom";
-import { setOrderData, setSaveCart, setSaveItems } from "@/redux/itemSlice";
+import { useLogin } from "../../hooks/useLogin";
 
 const Login = () => {
-  const { backendUrl } = useBackend();
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(false);
-  const [login, setLogin] = useState(false);
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const {
+    handleSubmit,
+    login,
+    setName,
+    name,
+    setEmail,
+    email,
+    setPassword,
+    password,
+    isLoading,
+    setLogin,
+  } = useLogin();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (login) {
-      try {
-        setIsLoading(true);
-        const res = await axios.post(
-          `${backendUrl}/api/user/login`,
-          { email, password },
-          { withCredentials: true }
-        );
-
-        if (res?.data?.success) {
-          toast.success(res?.data?.message);
-          dispatch(setUser(res?.data?.user));
-          dispatch(setIsAuth(true));
-          navigate("/");
-        }
-      } catch (error) {
-        console.log(error);
-        toast.error(error?.response?.data?.message);
-      } finally {
-        setIsLoading(false);
-      }
-    } else {
-      try {
-        setIsLoading(true);
-        const res = await axios.post(
-          `${backendUrl}/api/user/register`,
-          { name, email, password },
-          { withCredentials: true }
-        );
-
-        if (res?.data?.success) {
-          toast.success(res?.data?.message);
-          dispatch(setUser(res?.data?.user));
-          dispatch(setIsAuth(true));
-          navigate("/");
-          dispatch(setSaveItems([]));
-          dispatch(setOrderData([]));
-          dispatch(setSaveCart([]));
-        }
-      } catch (error) {
-        console.log(error);
-        toast.error(error?.response?.data?.message);
-      } finally {
-        setIsLoading(false);
-      }
-    }
-  };
   return (
     <div className="max-w-7xl mx-auto flex items-center justify-center h-[90vh] px-2 md:px-4">
       <form
