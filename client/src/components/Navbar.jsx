@@ -138,15 +138,15 @@ const Navbar = () => {
             />
           )} */}
           <div className="relative">
-            {!isAuth ? (
+            {isAuth ? (
               <FaRegUser
                 className="w-5 h-5 text-gray-700 cursor-pointer"
-                onClick={() => navigate("/login")}
+                onClick={() => setOpen(!open)}
               />
             ) : (
               <FaRegUser
                 className="w-5 h-5 text-gray-700 cursor-pointer"
-                onClick={() => setOpen(!open)}
+                onClick={() => navigate("/login")}
               />
             )}
             <div
